@@ -1,0 +1,9 @@
+11:11:32,852 DEBUG DefaultListableBeanFactory:246 - Returning cached instance of singleton bean 'org.springframework.transaction.interceptor.TransactionInterceptor#0'
+11:11:32,858 DEBUG AnnotationTransactionAttributeSource:106 - Adding transactional method 'service' with attribute: PROPAGATION_SUPPORTS,ISOLATION_DEFAULT; ''
+11:11:35,691 DEBUG DefaultListableBeanFactory:246 - Returning cached instance of singleton bean 'transactionManager'
+11:12:02,499 DEBUG JdbcTemplate:507 - Executing SQL update [INSERT INTO users (name, age) VALUES ('ken', 18)]
+11:12:04,480 DEBUG DataSourceUtils:110 - Fetching JDBC Connection from DataSource
+11:12:04,489 DEBUG DataSourceUtils:114 - Registering transaction synchronization for JDBC Connection
+11:12:05,311 DEBUG JdbcTemplate:513 - SQL update affected 1 rows
+11:12:09,213 DEBUG JdbcTemplate:435 - Executing SQL query [SELECT * FROM users]
+11:13:25,858 DEBUG DataSourceUtils:327 - Returning JDBC Connection to DataSource
