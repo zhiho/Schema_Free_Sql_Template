@@ -38,7 +38,7 @@ public interface SqlOperate
 	 * @param where 
 	 * @return affert rows count
 	 */
-	int select(String table,Collection<String> fields,String where);
+	List<Map<String, Object>> select(String table,Collection<String> fields,String where);
 	
 	/**
 	 * update the table with the data
@@ -47,7 +47,7 @@ public interface SqlOperate
 	 * @param where 
 	 * @return affert rows count
 	 */
-	int select(String table,Collection<String> fields,Map<String,Object> where);
+	List<Map<String, Object>> select(String table,Collection<String> fields,Map<String,Object> where);
 	
 	
 	/**
