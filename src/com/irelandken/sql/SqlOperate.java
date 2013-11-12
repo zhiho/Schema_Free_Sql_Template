@@ -21,7 +21,6 @@ public interface SqlOperate
 	/**
 	 * INSERT INTO table (key1, key2..) VALUES ('value1', 'value2'..)
 	 * <br>
-	 * insert a row to table with the data and return id <br>
 	 * @param table
 	 * @param data
 	 * @return id
@@ -31,7 +30,6 @@ public interface SqlOperate
 	/**
 	 * INSERT INTO table (key1, key2..) VALUES ('value1', 'value2'..);
 	 * <br>
-	 * insert a row to table with the data <br>
 	 * @param table
 	 * @param data
 	 * @return success/fail
@@ -41,7 +39,7 @@ public interface SqlOperate
 
 	/**
 	 * SELECT field1,field2.. FROM table WHERE where;
-	 * 
+	 * <br>
 	 * @param table
 	 * @param data
 	 * @param where 
@@ -63,7 +61,6 @@ public interface SqlOperate
 	/**
 	 * UPDATE table SET field1 = 'value1', field2 = 'value2'.. WHERE where;
 	 * <br>
-	 * update the table with the data
 	 * @param table
 	 * @param data
 	 * @param where 
@@ -74,7 +71,6 @@ public interface SqlOperate
 	/**
 	 * UPDATE table SET field1 = 'value1', field2 = 'value2'.. WHERE key1 = 'value1' AND key2 = 'value2' ..;
 	 * <br>
-	 * update the table with the data
 	 * @param table
 	 * @param data
 	 * @param where 
@@ -103,6 +99,7 @@ public interface SqlOperate
 	
 	/**
 	 * SELECT COUNT(*) AS C FROM table WHERE where;
+	 * 
 	 * @param table
 	 * @param where 
 	 * @return rows count
@@ -112,6 +109,7 @@ public interface SqlOperate
 	
 	/**
 	 * SELECT COUNT(*) AS C FROM table WHERE key1 = 'value1' AND key2 = 'value2' ..;
+	 * 
 	 * @param table
 	 * @param where 
 	 * @return affert rows count
