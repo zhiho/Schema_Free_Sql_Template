@@ -1,5 +1,4 @@
 package com.irelandken.test;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,14 +57,7 @@ public class SqlTemplateTest {
 	@Test
 	public void select() {
 		
-		List<String> fields = new ArrayList();
-		
-		fields.add("id");
-		fields.add("name");
-		fields.add("age");
-		
-		List<Map<String, Object>> list = template.select("users",fields,"name = 'kkk' AND age = 18");
-		
+		List<Map<String, Object>> list = template.select("users",new String[]{"id","name","age"},"name = 'kkk' AND age = 18");
 	}
 	
 	
@@ -80,17 +72,11 @@ public class SqlTemplateTest {
 	@Test
 	public void select2() {
 		
-		List<String> fields = new ArrayList();
-		
-		fields.add("id");
-		fields.add("name");
-		fields.add("age");
-		
 		Map<String,Object> where  = new HashMap<String,Object>();
 		where.put("name", "kkk");
 		where.put("age", 18);
 		
-		List<Map<String, Object>> list = template.select("users",fields,where);
+		List<Map<String, Object>> list = template.select("users",new String[]{"id","name","age"},where);
 	}
 	
 	
@@ -109,12 +95,7 @@ public class SqlTemplateTest {
 	@Test
 	public void select3() {
 		
-		List<String> fields = new ArrayList();
-		
-		fields.add("name");
-		fields.add("age");
-		
-		List<Map<String, Object>> list = template.select("users",fields,"name != 'ken'","name DESC,age ASC",0,10);
+		List<Map<String, Object>> list = template.select("users",new String[]{"name","age"},"name != 'ken'","name DESC,age ASC",0,10);
 		
 		System.out.println(list);
 	}
@@ -133,10 +114,6 @@ public class SqlTemplateTest {
 	 */
 	@Test
 	public void select4() {
-		List<String> fields = new ArrayList();
-		
-		fields.add("name");
-		fields.add("age");
 		
 		Map<String,Object> where  = new HashMap<String,Object>();
 		where.put("name", "kkk");
