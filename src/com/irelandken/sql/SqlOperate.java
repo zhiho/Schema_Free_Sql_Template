@@ -10,9 +10,8 @@ import org.springframework.jdbc.core.SqlParameterValue;
 /**
  *  
  * @author irelandKen
- * @since 2013-11-10
+ * @since 2013-11-12
  * TODO: LIMIT $start,$limit
- * TODO: COUNT(*)
  * TODO: queryOne? selectOne ?
  */
 
@@ -66,7 +65,7 @@ public interface SqlOperate
 	 * @param where 
 	 * @return affert rows count
 	 */
-	int updata(String table,Map<String, Object> data,String where);
+	int update(String table,Map<String, Object> data,String where);
 	
 	/**
 	 * UPDATE table SET field1 = 'value1', field2 = 'value2'.. WHERE key1 = 'value1' AND key2 = 'value2' ..;
@@ -76,7 +75,7 @@ public interface SqlOperate
 	 * @param where 
 	 * @return affert rows count
 	 */
-	int updata(String table,Map<String, Object> data,Map<String,Object> where);
+	int update(String table,Map<String, Object> data,Map<String,Object> where);
 	
 	
 	/**
