@@ -123,7 +123,7 @@ public interface SqlOperate
 	int delete(String table, Map<String,Object> where);
 	
 	/**
-	 * SELECT COUNT(*) AS C FROM table WHERE where;
+	 * SELECT COUNT(*) FROM table WHERE where;
 	 * 
 	 * @param table
 	 * @param where 
@@ -133,7 +133,7 @@ public interface SqlOperate
 	
 	
 	/**
-	 * SELECT COUNT(*) AS C FROM table WHERE key1 = 'value1' AND key2 = 'value2' ..;
+	 * SELECT COUNT(*) FROM table WHERE key1 = 'value1' AND key2 = 'value2' ..;
 	 * 
 	 * @param table
 	 * @param where 
@@ -143,9 +143,9 @@ public interface SqlOperate
 	
 	
 	
-	//-----------------------------------------------
-	//-----以下为通用的SQL操作------------------------------------------
-	//-----------------------------------------------
+	//-----------------------------------------------------------
+	//-----以下为通用的SQL操作 -----------------------------------------
+	//-----------------------------------------------------------
 	
 	
 	/**
