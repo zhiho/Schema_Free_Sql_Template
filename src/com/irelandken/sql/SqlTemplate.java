@@ -20,13 +20,15 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.util.Assert;
 
 /**
+ * Schema Free Sql Template
  * 
  * @author irelandKen
  * @since 2013-11-12
  * TODO: 重构 where_string
+ * TODO: 重构SQL拼接工具
  */
 
-public class SqlTemplate extends JdbcTemplate implements SqlOperate 
+public class SqlTemplate extends JdbcTemplate implements SqlOperations 
 {
 	public SqlTemplate(DataSource dataSource)
 	{
@@ -143,7 +145,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperate
 			sql += " WHERE " + link(" AND ",condictions);
 		}
 		
-		return super.queryForList(sql, args);
+		return super.queryForList(sql, args.toArray());
 	}
 
 	@Override
@@ -208,7 +210,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperate
 			sql += " LIMIT " + start + "," + limit;
 		}
 		
-		return super.queryForList(sql, args);
+		return super.queryForList(sql, args.toArray());
 	}
 
 	@Override
@@ -226,13 +228,13 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperate
 			args.add(entry.getValue());
 		}
 
-		String sql = "UPDATE " + table + " SET " + link(" AND ",fieldStrs);
+		String sql = "UPDATE " + table + " SET " + link(", ",fieldStrs);
 		
 		if(where != null) {
 			sql += " WHERE " + where;
 		}
 		
-		return super.update(sql, args);
+		return super.update(sql, args.toArray());
 	}
 
 	@Override
@@ -241,16 +243,22 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperate
 		//UPDATE table SET field1 = ?, field2 = ?.. WHERE key1 = ? AND key2 = ?..; ; 
 		
 		Assert.notEmpty(data);
+		
+		int argCnt = data.size();
+		if(where != null) {
+			argCnt += where.size();
+		}
 
+		List<Object> args      = new ArrayList<Object>(argCnt);
 		List<String> fieldStrs = new ArrayList<String>(data.size());
-		List<Object> args      = new ArrayList<Object>(data.size());
+		
 		
 		for(Entry<String, Object> entry : data.entrySet()) {
 			fieldStrs.add(entry.getKey() + " = ? ");
 			args.add(entry.getValue());
 		}
 
-		String sql = "UPDATE " + table + " SET " + link(" AND ",fieldStrs);
+		String sql = "UPDATE " + table + " SET " + link(", ",fieldStrs);
 		
 		//WHERE
 		if(where != null && !where.isEmpty()) {
@@ -264,7 +272,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperate
 			sql += " WHERE " + link(" AND ",condictions);
 		}
 		
-		return super.update(sql, args);
+		return super.update(sql, args.toArray());
 	}
 
 	@Override
@@ -303,7 +311,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperate
 			sql += " WHERE " + link(" AND ",condictions);
 		}
 		
-		return super.update(sql,args);
+		return super.update(sql,args.toArray());
 	}
 
 	@Override
@@ -342,7 +350,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperate
 			sql += " WHERE " + link(" AND ",condictions);
 		}
 
-		return super.queryForInt(sql,args);
+		return super.queryForInt(sql,args.toArray());
 	}
 	
 	

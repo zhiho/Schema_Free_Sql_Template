@@ -8,13 +8,14 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.SqlParameterValue;
 
 /**
+ * Schema Free Sql Template
  *  
  * @author irelandKen
  * @since 2013-11-12
  * TODO: queryOne? selectOne ?
  */
 
-public interface SqlOperate
+public interface SqlOperations
 {
 	/**
 	 * INSERT INTO table (key1, key2..) VALUES ('value1', 'value2'..)
