@@ -11,12 +11,17 @@ import org.springframework.jdbc.core.SqlParameterValue;
  *  
  * @author irelandKen
  * @since 2013-11-10
+ * TODO: LIMIT $start,$limit
+ * TODO: COUNT(*)
+ * TODO: queryOne? selectOne ?
  */
 
 public interface SqlOperate
 {
 	/**
-	 * insert a row to table with the data and return id
+	 * INSERT INTO table (key1, key2..) VALUES ('value1', 'value2'..)
+	 * <br>
+	 * insert a row to table with the data and return id <br>
 	 * @param table
 	 * @param data
 	 * @return id
@@ -24,15 +29,19 @@ public interface SqlOperate
 	Number insert(String table, Map<String, Object> data);
 	
 	/**
-	 * insert a row to table with the data
+	 * INSERT INTO table (key1, key2..) VALUES ('value1', 'value2'..);
+	 * <br>
+	 * insert a row to table with the data <br>
 	 * @param table
 	 * @param data
-	 * @return affert rows count
+	 * @return success/fail
 	 */
-	int insert2(String table, Map<String, Object> data);
+	boolean insert2(String table, Map<String, Object> data);
+	
 
 	/**
-	 * update the table with the data
+	 * SELECT field1,field2.. FROM table WHERE where;
+	 * 
 	 * @param table
 	 * @param data
 	 * @param where 
@@ -41,7 +50,8 @@ public interface SqlOperate
 	List<Map<String, Object>> select(String table,Collection<String> fields,String where);
 	
 	/**
-	 * update the table with the data
+	 * SELECT field1,field2.. FROM table WHERE key1 = 'value1' AND key2 = 'value2' ..;
+	 * 
 	 * @param table
 	 * @param data
 	 * @param where 
@@ -51,6 +61,8 @@ public interface SqlOperate
 	
 	
 	/**
+	 * UPDATE table SET field1 = 'value1', field2 = 'value2'.. WHERE where;
+	 * <br>
 	 * update the table with the data
 	 * @param table
 	 * @param data
@@ -60,6 +72,8 @@ public interface SqlOperate
 	int updata(String table,Map<String, Object> data,String where);
 	
 	/**
+	 * UPDATE table SET field1 = 'value1', field2 = 'value2'.. WHERE key1 = 'value1' AND key2 = 'value2' ..;
+	 * <br>
 	 * update the table with the data
 	 * @param table
 	 * @param data
@@ -68,8 +82,10 @@ public interface SqlOperate
 	 */
 	int updata(String table,Map<String, Object> data,Map<String,Object> where);
 	
+	
 	/**
-	 * update the table with the data
+	 * DELETE FROM table WHERE where;
+	 * 
 	 * @param table
 	 * @param where 
 	 * @return affert rows count
@@ -77,12 +93,30 @@ public interface SqlOperate
 	int delete(String table, String where);
 	
 	/**
-	 * update the table with the data
+	 * DELETE FROM table WHERE key1 = 'value1' AND key2 = 'value2' ..;
+	 *  
 	 * @param table
 	 * @param where 
 	 * @return affert rows count
 	 */
 	int delete(String table, Map<String,Object> where);
+	
+	/**
+	 * SELECT COUNT(*) AS C FROM table WHERE where;
+	 * @param table
+	 * @param where 
+	 * @return rows count
+	 */
+	int count(String table, String where);
+	
+	
+	/**
+	 * SELECT COUNT(*) AS C FROM table WHERE key1 = 'value1' AND key2 = 'value2' ..;
+	 * @param table
+	 * @param where 
+	 * @return affert rows count
+	 */
+	int count(String table, Map<String,Object> where);
 	
 	
 	
