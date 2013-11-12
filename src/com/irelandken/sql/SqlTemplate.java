@@ -35,6 +35,35 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		super(dataSource);
 	}
 
+	/**
+	 * Determine whether the given array is empty:
+	 * i.e. {@code null} or of zero length.
+	 * @param array the array to check
+	 */
+	private static boolean isEmpty(Object[] array) {
+		return (array == null || array.length == 0);
+	}
+	
+	/**
+	 * Return {@code true} if the supplied Collection is {@code null}
+	 * or empty. Otherwise, return {@code false}.
+	 * @param collection the Collection to check
+	 * @return whether the given Collection is empty
+	 */
+	private static boolean isEmpty(Collection collection) {
+		return (collection == null || collection.isEmpty());
+	}
+
+	/**
+	 * Return {@code true} if the supplied Map is {@code null}
+	 * or empty. Otherwise, return {@code false}.
+	 * @param map the Map to check
+	 * @return whether the given Map is empty
+	 */
+	private static boolean isEmpty(Map map) {
+		return (map == null || map.isEmpty());
+	}
+	
 	private static String link(String glue,Collection<String> strs) {
 		
 		StringBuilder builder = new StringBuilder();
@@ -106,7 +135,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		//SELECT field1,field2.. FROM table WHERE where; 
 		
 		String sql = null;
-		if(fields == null || fields.isEmpty()) {
+		if(isEmpty(fields)) {
 			sql  = "SELECT * FROM " + table;
 		} else {
 			sql  = "SELECT " + link(",",fields) + " FROM " + table;
@@ -125,7 +154,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		//SELECT field1,field2.. FROM table WHERE key1 = ? AND key2 = ? ..;
 
 		String sql = null;
-		if(fields == null || fields.isEmpty()) {
+		if(isEmpty(fields)) {
 			sql  = "SELECT * FROM " + table;
 		} else {
 			sql  = "SELECT " + link(",",fields) + " FROM " + table;
@@ -133,7 +162,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		
 		List<Object> args = null;
 		
-		if(where != null && !where.isEmpty()) {
+		if(! isEmpty(where)) {
 			args = new ArrayList<Object>(where.size());
 			List<String> condictions = new ArrayList<String>(where.size());
 			
@@ -154,7 +183,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		//SELECT field1,field2.. FROM table WHERE where ORDER BY orderBy LIMIT start,limit;
 		
 		String sql = null;
-		if(fields == null || fields.isEmpty()) {
+		if(isEmpty(fields)) {
 			sql  = "SELECT * FROM " + table;
 		} else {
 			sql  = "SELECT " + link(",",fields) + " FROM " + table;
@@ -181,7 +210,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		//SELECT field1,field2.. FROM table WHERE key1 = ? AND key2 = ?.. ORDER BY orderBy LIMIT start,limit;
 
 		String sql = null;
-		if(fields == null || fields.isEmpty()) {
+		if(isEmpty(fields)) {
 			sql  = "SELECT * FROM " + table;
 		} else {
 			sql  = "SELECT " + link(",",fields) + " FROM " + table;
@@ -190,7 +219,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		List<Object> args = null;
 		
 		//WHERE
-		if(where != null && !where.isEmpty()) {
+		if(! isEmpty(where)) {
 			args = new ArrayList<Object>(where.size());
 			List<String> condictions = new ArrayList<String>(where.size());
 			
@@ -261,7 +290,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		String sql = "UPDATE " + table + " SET " + link(", ",fieldStrs);
 		
 		//WHERE
-		if(where != null && !where.isEmpty()) {
+		if(! isEmpty(where)) {
 			List<String> condictions = new ArrayList<String>(where.size());
 			
 			for(Entry<String, Object> entry : where.entrySet()) {
@@ -299,7 +328,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		List<Object> args = null;
 		
 		//WHERE
-		if(where != null && !where.isEmpty()) {
+		if(! isEmpty(where)) {
 			args = new ArrayList<Object>(where.size());
 			List<String> condictions = new ArrayList<String>(where.size());
 			
@@ -338,7 +367,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		List<Object> args = null;
 		
 		//WHERE
-		if(where != null && !where.isEmpty()) {
+		if(! isEmpty(where)) {
 			args = new ArrayList<Object>(where.size());
 			List<String> condictions = new ArrayList<String>(where.size());
 			
