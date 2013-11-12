@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.SqlParameterValue;
  *  
  * @author irelandKen
  * @since 2013-11-12
- * TODO: LIMIT $start,$limit
  * TODO: queryOne? selectOne ?
  */
 
@@ -55,6 +54,33 @@ public interface SqlOperate
 	 * @return affert rows count
 	 */
 	List<Map<String, Object>> select(String table,Collection<String> fields,Map<String,Object> where);
+	
+	
+	/**
+	 * SELECT field1,field2.. FROM table WHERE where ORDER BY orderBy LIMIT start,limit;
+	 * 
+	 * @param table
+	 * @param fields
+	 * @param where
+	 * @param orderBy EX:"field1 DESC, field2 ASC"
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	List<Map<String, Object>> select(String table,Collection<String> fields,String where,String orderBy,int start,int limit);
+	
+	/**
+	 * SELECT field1,field2.. FROM table WHERE key1 = 'value1' AND key2 = 'value2'.. ORDER BY orderBy LIMIT start,limit;
+	 * 
+	 * @param table
+	 * @param fields
+	 * @param where
+	 * @param orderBy EX:"field1 DESC, field2 ASC"
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	List<Map<String, Object>> select(String table,Collection<String> fields,Map<String,Object> where,String orderBy,int start,int limit);
 	
 	
 	/**
