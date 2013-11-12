@@ -39,7 +39,7 @@ public interface SqlOperate
 	 * SELECT field1,field2.. FROM table WHERE where;
 	 * <br>
 	 * @param table
-	 * @param data
+	 * @param fields
 	 * @param where 
 	 * @return affert rows count
 	 */
@@ -49,7 +49,7 @@ public interface SqlOperate
 	 * SELECT field1,field2.. FROM table WHERE key1 = 'value1' AND key2 = 'value2' ..;
 	 * 
 	 * @param table
-	 * @param data
+	 * @param fields
 	 * @param where 
 	 * @return affert rows count
 	 */
