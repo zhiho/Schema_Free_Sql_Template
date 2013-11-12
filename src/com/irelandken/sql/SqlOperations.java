@@ -1,6 +1,5 @@
 package com.irelandken.sql;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -44,7 +43,7 @@ public interface SqlOperations
 	 * @param where 
 	 * @return affert rows count
 	 */
-	List<Map<String, Object>> select(String table,Collection<String> fields,String where);
+	List<Map<String, Object>> select(String table,String[] fields,String where);
 	
 	/**
 	 * SELECT field1,field2.. FROM table WHERE key1 = 'value1' AND key2 = 'value2' ..;
@@ -54,7 +53,7 @@ public interface SqlOperations
 	 * @param where 
 	 * @return affert rows count
 	 */
-	List<Map<String, Object>> select(String table,Collection<String> fields,Map<String,Object> where);
+	List<Map<String, Object>> select(String table,String[] fields,Map<String,Object> where);
 	
 	
 	/**
@@ -68,7 +67,7 @@ public interface SqlOperations
 	 * @param limit
 	 * @return
 	 */
-	List<Map<String, Object>> select(String table,Collection<String> fields,String where,String orderBy,int start,int limit);
+	List<Map<String, Object>> select(String table,String[] fields,String where,String orderBy,int start,int limit);
 	
 	/**
 	 * SELECT field1,field2.. FROM table WHERE key1 = 'value1' AND key2 = 'value2'.. ORDER BY orderBy LIMIT start,limit;
@@ -81,7 +80,7 @@ public interface SqlOperations
 	 * @param limit
 	 * @return
 	 */
-	List<Map<String, Object>> select(String table,Collection<String> fields,Map<String,Object> where,String orderBy,int start,int limit);
+	List<Map<String, Object>> select(String table,String[] fields,Map<String,Object> where,String orderBy,int start,int limit);
 	
 	
 	/**

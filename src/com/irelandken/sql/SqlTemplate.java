@@ -81,6 +81,23 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		return builder.toString();
 	}
 	
+	private static String link(String glue, String[] strs) {
+		
+		StringBuilder builder = new StringBuilder();
+		
+		int len = strs.length;
+		int cur = 0;
+		for(String str : strs) {
+			cur++;
+			builder.append(str);
+			if(cur < len) {
+				builder.append(glue);
+			}
+		}
+		
+		return builder.toString();
+	}
+	
 	private static String placeholders(int num) {
 		
 		if(num<=0) {
@@ -130,7 +147,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	}
 
 	@Override
-	public List<Map<String, Object>> select(String table, Collection<String> fields, String where)
+	public List<Map<String, Object>> select(String table, String[] fields, String where)
 	{
 		//SELECT field1,field2.. FROM table WHERE where; 
 		
@@ -149,7 +166,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	}
 
 	@Override
-	public List<Map<String, Object>> select(String table, Collection<String> fields, Map<String, Object> where)
+	public List<Map<String, Object>> select(String table, String[] fields, Map<String, Object> where)
 	{
 		//SELECT field1,field2.. FROM table WHERE key1 = ? AND key2 = ? ..;
 
@@ -178,7 +195,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	}
 
 	@Override
-	public List<Map<String, Object>> select(String table, Collection<String> fields, String where, String orderBy, int start, int limit)
+	public List<Map<String, Object>> select(String table, String[] fields, String where, String orderBy, int start, int limit)
 	{
 		//SELECT field1,field2.. FROM table WHERE where ORDER BY orderBy LIMIT start,limit;
 		
@@ -205,7 +222,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	}
 
 	@Override
-	public List<Map<String, Object>> select(String table, Collection<String> fields, Map<String, Object> where, String orderBy, int start, int limit)
+	public List<Map<String, Object>> select(String table, String[] fields, Map<String, Object> where, String orderBy, int start, int limit)
 	{
 		//SELECT field1,field2.. FROM table WHERE key1 = ? AND key2 = ?.. ORDER BY orderBy LIMIT start,limit;
 
