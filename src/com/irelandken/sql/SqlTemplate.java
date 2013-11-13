@@ -3,6 +3,7 @@ package com.irelandken.sql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -125,7 +126,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		    new PreparedStatementCreator() {
 		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
 		            PreparedStatement ps =
-		                connection.prepareStatement(sql, new String[] {"id"});
+		                connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 		            
 		            (new ArgumentPreparedStatementSetter(data.values().toArray())).setValues(ps);
 		            
