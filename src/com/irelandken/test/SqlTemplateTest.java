@@ -126,6 +126,41 @@ public class SqlTemplateTest {
 		
 	}
 	
+	/**
+	 * SELECT field1,field2.. FROM table WHERE where;
+	 * <br>
+	 * @param table
+	 * @param fields
+	 * @param where 
+	 * @return affert rows count
+	 */
+	@Test
+	public void selectOne() {
+		
+		Map<String, Object> map = template.selectOne("users",new String[]{"id","name","age"},"name = 'kkk' AND age = 18");
+		
+		System.out.println(map);
+	}
+	
+	
+	/**
+	 * SELECT field1,field2.. FROM table WHERE key1 = 'value1' AND key2 = 'value2' ..;
+	 * 
+	 * @param table
+	 * @param fields
+	 * @param where 
+	 * @return affert rows count
+	 */
+	@Test
+	public void selectOne2() {
+		
+		Map<String,Object> where  = new HashMap<String,Object>();
+		where.put("name", "kkk");
+		where.put("age", 18);
+		
+		List<Map<String, Object>> list = template.select("users",new String[]{"id","name","age"},where);
+	}
+	
 	
 	/**
 	 * UPDATE table SET field1 = 'value1', field2 = 'value2'.. WHERE where;
