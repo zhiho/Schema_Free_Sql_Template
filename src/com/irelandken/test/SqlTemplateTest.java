@@ -100,6 +100,13 @@ public class SqlTemplateTest {
 		System.out.println(list);
 	}
 	
+	@Test
+	public void select3_1() {
+		
+		List<Map<String, Object>> list = template.select("users",new String[]{"name","age"},"name != 'ken'","name DESC,age ASC",null,null);
+		
+		System.out.println(list);
+	}
 	
 	/**
 	 * SELECT field1,field2.. FROM table WHERE key1 = 'value1' AND key2 = 'value2'.. ORDER BY orderBy LIMIT start,limit;
