@@ -24,7 +24,8 @@ import org.springframework.util.Assert;
  * Schema Free Sql Template
  * 
  * @author irelandKen
- * @since 2013-11-12
+ * @since 2013-11-15
+ * @version 0.2
  * TODO: 重构 where_string
  * TODO: 重构SQL拼接工具
  */

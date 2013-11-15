@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
  *  
  * @author irelandKen
  * @since 2013-11-15
+ * @version 0.2
  */
 
 public interface SqlOperations
