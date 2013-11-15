@@ -118,6 +118,8 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	@Override
 	public Number insert(String table, final Map<String, Object> data)
 	{
+		Assert.notNull(table);
+		Assert.notEmpty(data);
 		
 		final String sql = "INSERT INTO " + table + " (" + link(",",data.keySet()) + ") VALUES (" + placeholders(data.size()) + ")";
 
@@ -142,6 +144,9 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	@Override
 	public boolean insert2(String table, Map<String, Object> data)
 	{
+		Assert.notNull(table);
+		Assert.notEmpty(data);
+		
 		String sql = "INSERT INTO " + table + " (" + link(",",data.keySet()) + ") VALUES (" + placeholders(data.size()) + ")";
 		
 		return super.update(sql, data.values().toArray()) >= 1;
@@ -159,6 +164,8 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	public List<Map<String, Object>> select(String table, String[] fields, String where, String orderBy, Integer start, Integer limit)
 	{
 		//SELECT field1,field2.. FROM table WHERE where ORDER BY orderBy LIMIT start,limit;
+		
+		Assert.notNull(table);
 		
 		String sql = null;
 		if(isEmpty(fields)) {
@@ -204,6 +211,8 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	{
 		//SELECT field1,field2.. FROM table WHERE key1 = ? AND key2 = ?.. ORDER BY orderBy LIMIT start,limit;
 
+		Assert.notNull(table);
+		
 		String sql = null;
 		if(isEmpty(fields)) {
 			sql  = "SELECT * FROM " + table;
@@ -251,6 +260,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	{
 		//UPDATE table SET field1 = ?, field2 = ?.. WHERE where; 
 		
+		Assert.notNull(table);
 		Assert.notEmpty(data);
 
 		List<String> fieldStrs = new ArrayList<String>(data.size());
@@ -275,6 +285,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	{
 		//UPDATE table SET field1 = ?, field2 = ?.. WHERE key1 = ? AND key2 = ?..; ; 
 		
+		Assert.notNull(table);
 		Assert.notEmpty(data);
 		
 		int argCnt = data.size();
@@ -313,6 +324,8 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	{
 		//DELETE FROM table WHERE where;
 		
+		Assert.notNull(table);
+		
 		String sql = "DELETE FROM " + table;
 		
 		if(where != null) {
@@ -326,6 +339,8 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	public int delete(String table, Map<String, Object> where)
 	{
 		//DELETE FROM table WHERE key1 = ? AND key2 = ? ..;
+		
+		Assert.notNull(table);
 		
 		String sql = "DELETE FROM " + table;
 		
@@ -352,6 +367,8 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	{
 		//SELECT COUNT(*) FROM table WHERE where;
 		
+		Assert.notNull(table);
+		
 		String sql = "SELECT COUNT(*) FROM " + table;
 		
 		if(where != null) {
@@ -365,6 +382,8 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	public int count(String table, Map<String, Object> where)
 	{
 		//SELECT COUNT(*) FROM table WHERE key1 = ? AND key2 = ? ..;
+		
+		Assert.notNull(table);
 		
 		String sql = "SELECT COUNT(*) FROM " + table;
 		
