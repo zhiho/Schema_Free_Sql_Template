@@ -24,10 +24,11 @@ import org.springframework.util.Assert;
  * Schema Free Sql Template
  * 
  * @author irelandKen
- * @since 2013-11-15
+ * @since 2013-11-16
  * @version 0.2
  * TODO: 重构 where_string
  * TODO: 重构SQL拼接工具
+ * TODO: String sql => StringBuilder sql
  */
 
 public class SqlTemplate extends JdbcTemplate implements SqlOperations 
@@ -221,16 +222,18 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 			sql  = "SELECT " + link(",",fields) + " FROM " + table;
 		}
 		
-		List<Object> args = null;
+		Object[] args = null;
 		
 		//WHERE
 		if(! isEmpty(where)) {
-			args = new ArrayList<Object>(where.size());
-			List<String> condictions = new ArrayList<String>(where.size());
+			args = new Object[where.size()];
+			String[] condictions = new String[where.size()];
+			int index = 0;
 			
 			for(Entry<String, Object> entry : where.entrySet()) {
-				condictions.add(entry.getKey() + " = ? ");
-				args.add(entry.getValue());
+				condictions[index] = entry.getKey() + " = ? ";
+				args[index] = entry.getValue();
+				index++;
 			}
 			
 			sql += " WHERE " + link(" AND ",condictions);
@@ -244,7 +247,7 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 			sql += " LIMIT " + start + "," + limit;
 		}
 		
-		return super.queryForList(sql, args.toArray());
+		return super.queryForList(sql, args);
 	}
 
 	@Override
@@ -345,22 +348,24 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		
 		String sql = "DELETE FROM " + table;
 		
-		List<Object> args = null;
+		Object[] args = null;
 		
 		//WHERE
 		if(! isEmpty(where)) {
-			args = new ArrayList<Object>(where.size());
-			List<String> condictions = new ArrayList<String>(where.size());
+			args = new Object[where.size()];
+			String[] condictions = new String[where.size()];
+			int index = 0;
 			
 			for(Entry<String, Object> entry : where.entrySet()) {
-				condictions.add(entry.getKey() + " = ? ");
-				args.add(entry.getValue());
+				condictions[index] = entry.getKey() + " = ? ";
+				args[index] = entry.getValue();
+				index++;
 			}
 			
 			sql += " WHERE " + link(" AND ",condictions);
 		}
 		
-		return super.update(sql,args.toArray());
+		return super.update(sql,args);
 	}
 
 	@Override
@@ -388,22 +393,24 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		
 		String sql = "SELECT COUNT(*) FROM " + table;
 		
-		List<Object> args = null;
+		Object[] args = null;
 		
 		//WHERE
 		if(! isEmpty(where)) {
-			args = new ArrayList<Object>(where.size());
-			List<String> condictions = new ArrayList<String>(where.size());
+			args = new Object[where.size()];
+			String[] condictions = new String[where.size()];
+			int index = 0;
 			
 			for(Entry<String, Object> entry : where.entrySet()) {
-				condictions.add(entry.getKey() + " = ? ");
-				args.add(entry.getValue());
+				condictions[index] = entry.getKey() + " = ? ";
+				args[index] = entry.getValue();
+				index++;
 			}
 			
 			sql += " WHERE " + link(" AND ",condictions);
 		}
 
-		return super.queryForInt(sql,args.toArray());
+		return super.queryForInt(sql,args);
 	}
 	
 	
