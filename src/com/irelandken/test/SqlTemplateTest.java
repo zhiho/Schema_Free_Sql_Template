@@ -203,12 +203,12 @@ public class SqlTemplateTest {
 	public void update2() {
 		
 		Map<String,Object> data  = new HashMap<String,Object>();
-		data.put("name", "Ben");
-		data.put("age", 20);
+		data.put("name", "JACK");
+		data.put("age", 19);
 		
 		Map<String,Object> where  = new HashMap<String,Object>();
-		where.put("name", "JACK");
-		where.put("age", 19);
+		where.put("name", "JACK2");
+		where.put("age", 20);
 		
 		int cnt = template.update("users",data,where);
 		
