@@ -24,9 +24,8 @@ import org.springframework.util.Assert;
  * Schema Free Sql Template
  * 
  * @author irelandKen
- * @since 2013-11-16
- * @version 0.2
- * TODO: 重构 where_string
+ * @since 2013-11-17
+ * @version 0.2.1
  * TODO: 重构SQL拼接工具
  * TODO: String sql => StringBuilder sql
  */
@@ -115,6 +114,44 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		builder.append("?");
 		
 		return builder.toString();
+	}
+	
+	/**
+	 * sql segment with Prepared args ,used for prepared statement
+	 * @author irelandKen
+	 */
+	private static class PreparedSql {
+		
+		String sql_string;
+		Object[] sql_args;
+		
+		public PreparedSql(String sql_string, Object[] sql_args)
+		{
+			super();
+			this.sql_string = sql_string;
+			this.sql_args = sql_args;
+		}
+	}
+	
+	/**
+	 * 
+	 * @param where not null
+	 * @return
+	 */
+	private static PreparedSql preparedWhereString(Map<String, Object> where) {
+		Object[] where_args = new Object[where.size()];
+		String[] condictions = new String[where.size()];
+		int index = 0;
+		
+		for(Entry<String, Object> entry : where.entrySet()) {
+			condictions[index] = entry.getKey() + " = ? ";
+			where_args[index]  = entry.getValue();
+			index++;
+		}
+		
+		String where_string = link(" AND ",condictions);
+		
+		return new PreparedSql(where_string, where_args);
 	}
 	
 	@Override
@@ -226,17 +263,11 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		
 		//WHERE
 		if(! isEmpty(where)) {
-			args = new Object[where.size()];
-			String[] condictions = new String[where.size()];
-			int index = 0;
+			PreparedSql preparedWhere = preparedWhereString(where);
 			
-			for(Entry<String, Object> entry : where.entrySet()) {
-				condictions[index] = entry.getKey() + " = ? ";
-				args[index] = entry.getValue();
-				index++;
-			}
+			args = preparedWhere.sql_args;
 			
-			sql += " WHERE " + link(" AND ",condictions);
+			sql += " WHERE " + preparedWhere.sql_string;
 		}
 		
 		if(orderBy != null) {
@@ -310,14 +341,13 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		
 		//WHERE
 		if(! isEmpty(where)) {
-			List<String> condictions = new ArrayList<String>(where.size());
+			PreparedSql preparedWhere = preparedWhereString(where);
 			
-			for(Entry<String, Object> entry : where.entrySet()) {
-				condictions.add(entry.getKey() + " = ? ");
-				args.add(entry.getValue());
+			for (Object arg : preparedWhere.sql_args){
+				args.add(arg);
 			}
 			
-			sql += " WHERE " + link(" AND ",condictions);
+			sql += " WHERE " + preparedWhere.sql_string;
 		}
 		
 		return super.update(sql, args.toArray());
@@ -352,17 +382,11 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		
 		//WHERE
 		if(! isEmpty(where)) {
-			args = new Object[where.size()];
-			String[] condictions = new String[where.size()];
-			int index = 0;
+			PreparedSql preparedWhere = preparedWhereString(where);
 			
-			for(Entry<String, Object> entry : where.entrySet()) {
-				condictions[index] = entry.getKey() + " = ? ";
-				args[index] = entry.getValue();
-				index++;
-			}
+			args = preparedWhere.sql_args;
 			
-			sql += " WHERE " + link(" AND ",condictions);
+			sql += " WHERE " + preparedWhere.sql_string;
 		}
 		
 		return super.update(sql,args);
@@ -397,17 +421,11 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		
 		//WHERE
 		if(! isEmpty(where)) {
-			args = new Object[where.size()];
-			String[] condictions = new String[where.size()];
-			int index = 0;
+			PreparedSql preparedWhere = preparedWhereString(where);
 			
-			for(Entry<String, Object> entry : where.entrySet()) {
-				condictions[index] = entry.getKey() + " = ? ";
-				args[index] = entry.getValue();
-				index++;
-			}
+			args = preparedWhere.sql_args;
 			
-			sql += " WHERE " + link(" AND ",condictions);
+			sql += " WHERE " + preparedWhere.sql_string;
 		}
 
 		return super.queryForInt(sql,args);
