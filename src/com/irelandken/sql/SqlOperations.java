@@ -11,6 +11,7 @@ import org.springframework.dao.DataAccessException;
  * @author irelandKen
  * @since 2013-11-17
  * @version 0.2.1
+ * @see https://github.com/irelandKen/Schema_Free_Sql_Template
  */
 
 public interface SqlOperations

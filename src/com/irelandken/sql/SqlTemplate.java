@@ -26,6 +26,8 @@ import org.springframework.util.Assert;
  * @author irelandKen
  * @since 2013-11-17
  * @version 0.2.1
+ * @see https://github.com/irelandKen/Schema_Free_Sql_Template
+ * 
  * TODO: 重构SQL拼接工具
  * TODO: String sql => StringBuilder sql
  */
