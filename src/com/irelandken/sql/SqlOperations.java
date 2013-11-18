@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 
 /**
- * Schema Free Sql Template
+ * Data Oriented Sql Template
  *  
  * @author irelandKen
  * @since 2013-11-17

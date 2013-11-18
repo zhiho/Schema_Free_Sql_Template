@@ -21,7 +21,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.util.Assert;
 
 /**
- * Schema Free Sql Template
+ * Data Oriented Sql Template
  * 
  * @author irelandKen
  * @since 2013-11-17
