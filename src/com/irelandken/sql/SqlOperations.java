@@ -9,8 +9,8 @@ import org.springframework.dao.DataAccessException;
  * Data Oriented Sql Template
  *  
  * @author irelandKen
- * @since 2013-11-17
- * @version 0.2.1
+ * @since 2013-12-06
+ * @version 0.3.0 beta
  * @see https://github.com/irelandKen/Schema_Free_Sql_Template
  */
 
@@ -104,6 +104,27 @@ public interface SqlOperations
 	
 	
 	/**
+	 * Issue a single SQL update operation.
+	 * ONLY FOR UPDATE
+	 * @param sql static SQL to execute
+	 * @return the number of rows affected
+	 */
+	int update(String sql);
+	
+	/**
+	 * Issue a single SQL update operation
+	 * ONLY FOR UPDATE
+	 * via a prepared statement, binding the given arguments.
+	 * @param sql SQL containing bind parameters
+	 * @param args arguments to bind to the query
+	 * (leaving it to the PreparedStatement to guess the corresponding SQL type);
+	 * may also contain {@link SqlParameterValue} objects which indicate not
+	 * only the argument value but also the SQL type and optionally the scale
+	 * @return the number of rows affected
+	 */
+	int update(String sql, Object... args);
+	
+	/**
 	 * UPDATE table SET field1 = 'value1', field2 = 'value2'.. WHERE where;
 	 * <br>
 	 * @param table
@@ -123,6 +144,27 @@ public interface SqlOperations
 	 */
 	int update(String table,Map<String, Object> data,Map<String,Object> where);
 	
+	
+	/**
+	 * Issue a single SQL delete operation.
+	 * ONLY FOR DELETE
+	 * @param sql static SQL to execute
+	 * @return the number of rows affected
+	 */
+	int delete(String sql);
+	
+	/**
+	 * Issue a single SQL delete operation
+	 * ONLY FOR DELETE
+	 * via a prepared statement, binding the given arguments.
+	 * @param sql SQL containing bind parameters
+	 * @param args arguments to bind to the query
+	 * (leaving it to the PreparedStatement to guess the corresponding SQL type);
+	 * may also contain {@link SqlParameterValue} objects which indicate not
+	 * only the argument value but also the SQL type and optionally the scale
+	 * @return the number of rows affected
+	 */
+	int delete(String sql, Object... args);
 	
 	/**
 	 * DELETE FROM table WHERE where;
