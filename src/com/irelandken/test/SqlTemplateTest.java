@@ -14,6 +14,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.irelandken.sql.SqlOperations;
 
 
+/**
+ * TEST Case for Data Oriented Sql Template 
+ *  
+ * @author irelandKen
+ * @since 2013-13-06
+ * @version 0.2.1
+ * @see https://github.com/irelandKen/Schema_Free_Sql_Template
+ */
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"/applicationContext-db.xml"})
@@ -315,6 +324,67 @@ public class SqlTemplateTest {
 		int cnt2 = template.count("users",where);
 		
 		System.out.println(cnt2);
+	}
+	
+	
+	//-----------------------------------------------------------
+	//-----以下为通用的SQL操作 -----------------------------------------
+	//-----------------------------------------------------------
+	
+	
+	@Test
+	public void query_test()
+	{
+		List<Map<String, Object>> users = template.query("SELECT * FROM users WHERE age = 20");
+		
+		System.out.println(users);
+		//[{id=7007, name=Ben, age=20}, {id=7008, name=Ben, age=20}, {id=7009, name=Ben, age=20}]
+	}
+	
+	@Test
+	public void query2_test()
+	{
+		List<Map<String, Object>> users = template.query("SELECT * FROM users WHERE age >= ? ",20);
+		
+		System.out.println(users);
+		//[{id=7007, name=Ben, age=20}, {id=7008, name=Ben, age=20}, {id=7009, name=Ben, age=20}, {id=7010, name=bbb, age=21}, {id=7011, name=aaa, age=21}]
+	}
+	
+	@Test
+	public void queryOne_test()
+	{
+		Map<String, Object> user = template.queryOne("SELECT * FROM users WHERE id = 1");
+		
+		System.out.println(user);
+		//{id=1, name=ken, age=18}
+	}
+	
+	@Test
+	public void queryOne2_test()
+	{
+		Map<String, Object> user = template.queryOne("SELECT * FROM users WHERE id = ? ", 1);
+		
+		System.out.println(user);
+		//{id=1, name=ken, age=18}
+	}
+
+
+	@Test
+	public void queryUpdate()
+	{
+		int rows = template.queryUpdate("UPDATE users SET age = age +1 WHERE age >= 20");
+		
+		System.out.println("Affect Rows: " + rows);
+		//Affect Rows: 5
+	}
+
+	@Test
+	public void queryUpdate2()
+	{
+		int rows = template.queryUpdate("UPDATE users SET age = age +1 WHERE age >= ?", 20);
+		
+		System.out.println("Affect Rows: " + rows);
+		//Affect Rows: 5
 	}
 
 }
