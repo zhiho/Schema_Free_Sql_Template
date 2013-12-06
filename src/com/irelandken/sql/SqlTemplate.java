@@ -422,6 +422,18 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	}
 
 	@Override
+	public int count(String sql)
+	{
+		return super.queryForInt(sql);
+	}
+
+	@Override
+	public int count(String sql, Object... args)
+	{
+		return super.queryForInt(sql,args);
+	}
+	
+	@Override
 	public int count(String table, String where)
 	{
 		//SELECT COUNT(*) FROM table WHERE where;

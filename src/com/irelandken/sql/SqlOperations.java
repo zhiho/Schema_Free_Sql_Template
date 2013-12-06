@@ -184,6 +184,22 @@ public interface SqlOperations
 	 */
 	int delete(String table, Map<String,Object> where);
 	
+	
+	/**
+	 * 
+	 * @param sql
+	 * @return
+	 */
+	int count(String sql);
+	
+	/**
+	 * 
+	 * @param sql
+	 * @param args
+	 * @return
+	 */
+	int count(String sql, Object... args);
+	
 	/**
 	 * SELECT COUNT(*) FROM table WHERE where;
 	 * 
