@@ -217,6 +217,18 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		
 		return super.update(sql, data.values().toArray()) >= 1;
 	}
+	
+	@Override
+	public int insert2(String sql)
+	{
+		return queryUpdate(sql);
+	}
+
+	@Override
+	public int insert2(String sql, Object... args)
+	{
+		return queryUpdate(sql, args);
+	}
 
 
 	@Override

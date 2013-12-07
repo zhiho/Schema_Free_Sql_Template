@@ -33,7 +33,25 @@ public interface SqlOperations
 	 * @return success/fail
 	 */
 	boolean insert2(String table, Map<String, Object> data);
+
+	/**
+	 * Issue a single SQL insert operation 
+	 * @param sql static SQL to execute
+	 * @return the number of rows affected
+	 */
+	int insert2(String sql);
 	
+	/**
+	 * Issue a single SQL insert operation 
+	 * via a prepared statement, binding the given arguments.
+	 * @param sql SQL containing bind parameters
+	 * @param args arguments to bind to the query
+	 * (leaving it to the PreparedStatement to guess the corresponding SQL type);
+	 * may also contain {@link SqlParameterValue} objects which indicate not
+	 * only the argument value but also the SQL type and optionally the scale
+	 * @return the number of rows affected
+	 */
+	int insert2(String sql, Object... args);
 
 	/**
 	 * Execute a query for a result list, given static SQL.
