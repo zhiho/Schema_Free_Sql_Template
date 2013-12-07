@@ -182,6 +182,46 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 	}
 	
 	@Override
+	public Number insert(final String sql)
+	{
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		super.update(
+		    new PreparedStatementCreator() {
+		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+		            PreparedStatement ps =
+		                connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+		            
+		            return ps;
+		        }
+		    },
+		    keyHolder
+		);
+
+		return keyHolder.getKey();
+	}
+
+	@Override
+	public Number insert(final String sql, final Object... args)
+	{
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		super.update(
+		    new PreparedStatementCreator() {
+		        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+		            PreparedStatement ps =
+		                connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+		            
+		            (new ArgumentPreparedStatementSetter(args)).setValues(ps);
+		            
+		            return ps;
+		        }
+		    },
+		    keyHolder
+		);
+
+		return keyHolder.getKey();
+	}
+	
+	@Override
 	public Number insert(String table, final Map<String, Object> data)
 	{
 		Assert.notNull(table);

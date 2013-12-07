@@ -17,6 +17,25 @@ import org.springframework.dao.DataAccessException;
 public interface SqlOperations
 {
 	/**
+	 * Issue a single SQL insert operation 
+	 * @param sql static SQL to execute
+	 * @return id
+	 */
+	Number insert(String sql);
+	
+	/**
+	 * Issue a single SQL insert operation 
+	 * via a prepared statement, binding the given arguments.
+	 * @param sql SQL containing bind parameters
+	 * @param args arguments to bind to the query
+	 * (leaving it to the PreparedStatement to guess the corresponding SQL type);
+	 * may also contain {@link SqlParameterValue} objects which indicate not
+	 * only the argument value but also the SQL type and optionally the scale
+	 * @return id
+	 */
+	Number insert(String sql, Object... args);
+	
+	/**
 	 * INSERT INTO table (key1, key2..) VALUES ('value1', 'value2'..)
 	 * <br>
 	 * @param table
