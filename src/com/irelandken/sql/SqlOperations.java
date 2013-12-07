@@ -9,8 +9,8 @@ import org.springframework.dao.DataAccessException;
  * Data Oriented Sql Template
  *  
  * @author irelandKen
- * @since 2013-12-06
- * @version 0.3.0 beta
+ * @since 2013-12-07
+ * @version 0.3.0
  * @see https://github.com/irelandKen/Schema_Free_Sql_Template
  */
 
