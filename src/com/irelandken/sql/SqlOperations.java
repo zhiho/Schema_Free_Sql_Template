@@ -36,6 +36,80 @@ public interface SqlOperations
 	
 
 	/**
+	 * Execute a query for a result list, given static SQL.
+	 * ONLY FOR SELECT
+	 * <p>Uses a JDBC Statement, not a PreparedStatement. If you want to
+	 * execute a static query with a PreparedStatement, use the overloaded
+	 * {@code queryForList} method with {@code null} as argument array.
+	 * <p>The results will be mapped to a List (one entry for each row) of
+	 * Maps (one entry for each column using the column name as the key).
+	 * Each element in the list will be of the form returned by this interface's
+	 * queryForMap() methods.
+	 * @param sql SQL query to execute
+	 * @return an List that contains a Map per row
+	 * @throws DataAccessException if there is any problem executing the query
+	 * @see #queryForList(String, Object[])
+	 */
+	List<Map<String, Object>> select(String sql) throws DataAccessException;
+	
+	/**
+	 * Query given SQL to create a prepared statement from SQL and a
+	 * ONLY FOR SELECT
+	 * list of arguments to bind to the query, expecting a result list.
+	 * <p>The results will be mapped to a List (one entry for each row) of
+	 * Maps (one entry for each column, using the column name as the key).
+	 * Each element in the list will be of the form returned by this interface's
+	 * queryForMap() methods.
+	 * @param sql SQL query to execute
+	 * @param args arguments to bind to the query
+	 * (leaving it to the PreparedStatement to guess the corresponding SQL type);
+	 * may also contain {@link SqlParameterValue} objects which indicate not
+	 * only the argument value but also the SQL type and optionally the scale
+	 * @return a List that contains a Map per row
+	 * @throws DataAccessException if the query fails
+	 * @see #queryForList(String)
+	 */
+	List<Map<String, Object>> select(String sql, Object... args) throws DataAccessException;
+
+	/**
+	 * Execute a query for a result Map, given static SQL.
+	 * <p>Uses a JDBC Statement, not a PreparedStatement. If you want to
+	 * execute a static query with a PreparedStatement, use the overloaded
+	 * {@link #queryForMap(String, Object...)} method with {@code null}
+	 * as argument array.
+	 * <p>The query is expected to be a single row query; the result row will be
+	 * mapped to a Map (one entry for each column, using the column name as the key).
+	 * @param sql SQL query to execute
+	 * @return the result Map (one entry for each column, using the
+	 * column name as the key) OR null
+	 * @throws DataAccessException if there is any problem executing the query
+	 * @see #queryForMap(String, Object[])
+	 * @see ColumnMapRowMapper
+	 */
+	Map<String, Object> selectOne(String sql) throws DataAccessException;
+	
+	/**
+	 * Query given SQL to create a prepared statement from SQL and a
+	 * list of arguments to bind to the query, expecting a result Map.
+	 * The queryForMap() methods defined by this interface are appropriate
+	 * when you don't have a domain model. Otherwise, consider using
+	 * one of the queryForObject() methods.
+	 * <p>The query is expected to be a single row query; the result row will be
+	 * mapped to a Map (one entry for each column, using the column name as the key).
+	 * @param sql SQL query to execute
+	 * @param args arguments to bind to the query
+	 * (leaving it to the PreparedStatement to guess the corresponding SQL type);
+	 * may also contain {@link SqlParameterValue} objects which indicate not
+	 * only the argument value but also the SQL type and optionally the scale
+	 * @return the result Map (one entry for each column, using the
+	 * column name as the key) OR null
+	 * @throws DataAccessException if the query fails
+	 * @see #queryForMap(String)
+	 * @see ColumnMapRowMapper
+	 */
+	Map<String, Object> selectOne(String sql, Object... args) throws DataAccessException;
+
+	/**
 	 * SELECT field1,field2.. FROM table WHERE where;
 	 * <br>
 	 * @param table

@@ -218,6 +218,31 @@ public class SqlTemplate extends JdbcTemplate implements SqlOperations
 		return super.update(sql, data.values().toArray()) >= 1;
 	}
 
+
+	@Override
+	public List<Map<String, Object>> select(String sql) throws DataAccessException
+	{
+		return query(sql);
+	}
+
+	@Override
+	public List<Map<String, Object>> select(String sql, Object... args) throws DataAccessException
+	{
+		return query(sql, args);
+	}
+	
+	@Override
+	public Map<String, Object> selectOne(String sql) throws DataAccessException
+	{
+		return queryOne(sql);
+	}
+
+	@Override
+	public Map<String, Object> selectOne(String sql, Object... args) throws DataAccessException
+	{
+		return queryOne(sql, args);
+	}
+	
 	@Override
 	public List<Map<String, Object>> select(String table, String[] fields, String where)
 	{
