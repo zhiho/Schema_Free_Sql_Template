@@ -43,6 +43,22 @@ public class SqlTemplateTest {
 	}
 	
 	@Test
+	public void insert_1() {
+        
+        Number id = template.insert("INSERT INTO users (name,age) VALUES ('ken', 18)");
+        
+        Assert.assertEquals(id.intValue() > 0, true);
+	}
+	
+	@Test
+	public void insert_2() {
+        
+        Number id = template.insert("INSERT INTO users (name,age) VALUES (?, ?)", "ken", 18);
+        
+        Assert.assertEquals(id.intValue() > 0, true);
+	}
+	
+	@Test
 	public void insert2() {
         Map<String, Object> users = new HashMap<String, Object>(2);
         users.put("name", "kkk");
